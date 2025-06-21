@@ -4,12 +4,14 @@ const mongoose = require("mongoose");
 
 const articleRoutes = require("./routes/articles");
 
+fastify.register(require("@fastify/cors"));
+
+fastify.register(articleRoutes);
+
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => console.log("MongoDB connected"))
   .catch((err) => console.error(err));
-
-fastify.register(articleRoutes);
 
 const start = async () => {
   try {
